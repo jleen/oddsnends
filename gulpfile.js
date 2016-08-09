@@ -7,7 +7,11 @@ let sftp = require('gulp-sftp');
 
 let jsSrc = './js/*.js';
 let sassSrc = './sass/*.scss';
+let htmlSrc = './html/*.html';
 let uploadTree = './build/**'
+
+gulp.task('default', ['html', 'js', 'sass']);
+gulp.task('watch', ['sass:watch', 'js:watch', 'html:watch']);
 
 gulp.task('sass', () => {
     return gulp.src(sassSrc)
@@ -30,17 +34,21 @@ gulp.task('js:watch', () => {
 });
 
 gulp.task('html', () => {
-    return gulp.src('*.html')
+    return gulp.src(htmlSrc)
         .pipe(gulp.dest('./build'));
 });
 
-gulp.task('watch', ['sass:watch', 'js:watch']);
+gulp.task('html:watch', () => {
+    gulp.watch(htmlSrc, ['html']);
+});
 
-gulp.task('autoupload', () => {
+gulp.task('watch', ['sass:watch', 'js:watch', 'html:watch']);
+
+gulp.task('autoupload', ['watch'], () => {
     gulp.watch([uploadTree], ['upload']);
 });
 
-gulp.task('upload', () => {
+gulp.task('upload', ['default'], () => {
     return gulp.src(uploadTree, { base: './build' })
         .pipe(sftp({
             host: 'blob',
