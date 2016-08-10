@@ -3,11 +3,11 @@
 let gulp = require('gulp');
 let sass = require('gulp-sass');
 let babel = require('gulp-babel');
-let sftp = require('gulp-sftp');
+let rsync = require('gulp-rsync');
 
 let jsSrc = './js/*.js';
 let sassSrc = './sass/*.scss';
-let htmlSrc = './html/*.html';
+let htmlSrc = './html/*';
 let uploadTree = './build/**'
 
 gulp.task('default', ['html', 'js', 'sass']);
@@ -50,9 +50,12 @@ gulp.task('autoupload', ['watch'], () => {
 
 gulp.task('upload', ['default'], () => {
     return gulp.src(uploadTree, { base: './build' })
-        .pipe(sftp({
-            host: 'blob',
-            user: 'jleen',
-            remotePath: '/srv/saturnvalley.org/www/oddsnends'
+        .pipe(rsync({
+            root: 'build/',
+            hostname: 'saturnvalley.org',
+            destination: '/srv/saturnvalley.org/www/oddsnends',
+            recursive: true,
+            clean: true,
+            incremental: true
         }));
 });
