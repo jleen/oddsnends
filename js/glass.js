@@ -45,7 +45,7 @@ function draw() {
     pane1.push(pane[i]);
   }
 
-  pane2 = [ cut ];
+  var pane2 = [ cut ];
   for (var i = (whichSide + 1) % numVertices; i != (whichVertex + 1) % numVertices; i = (i+1) % numVertices) {
     pane2.push(pane[i]);
   }

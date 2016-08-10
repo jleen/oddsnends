@@ -4,6 +4,7 @@ let gulp = require('gulp');
 let sass = require('gulp-sass');
 let babel = require('gulp-babel');
 let rsync = require('gulp-rsync');
+let sourcemaps = require('gulp-sourcemaps');
 
 let jsSrc = './js/*.js';
 let sassSrc = './sass/*.scss';
@@ -25,7 +26,9 @@ gulp.task('sass:watch', () => {
 
 gulp.task('js', () => {
     gulp.src(jsSrc)
-        .pipe(babel())
+        .pipe(sourcemaps.init())
+        .pipe(babel({ presets: ['es2015'] }))
+        .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('./build'));
 });
 
