@@ -16,7 +16,7 @@ function menuLine(sketch, letter) {
 }
 
 function display(i) {
-    $('#main').append(nonsenseLine(sketches[i]));
+    document.getElementById('main').innerHTML += nonsenseLine(sketches[i]);
     if (i + 1 < sketches.length) {
         setTimeout(() => { display(i + 1); }, catalogDelay);
     } else {
@@ -36,7 +36,7 @@ function menuLines(i) {
 }
 
 function menu(i) {
-    $('#main').html(nonsense + menuLines(i));
+    document.getElementById('main').innerHTML = nonsense + menuLines(i);
 
     if (i < sketches.length) {
         setTimeout(() => { menu(i + 1); }, menuDelay);
@@ -48,7 +48,7 @@ function menu(i) {
 function menuDone() {
     let html = '<p class="title"><span class="inverse">PROGRAMS</span></p><p>&nbsp;</p>';
     html += menuLines(sketches.length);
-    $('#main').html(html);
+    document.getElementById('main').innerHTML = html;
 
     $(document).keypress((event) => {
         if (event.which > 96 && event.which <= 96 + sketches.length) {
@@ -58,10 +58,7 @@ function menuDone() {
     });
 }
 
-$(document).ready(() => {
-    $('#main').append(nonsense);
+window.addEventListener('load', () => {
+    document.getElementById('main').innerHTML += nonsense;
     setTimeout(function () { display(0); }, catalogDelay);
 });
-
-
-

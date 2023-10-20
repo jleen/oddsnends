@@ -11,7 +11,7 @@ function convexCombination(u, v, d) {
 var panes = [];
 
 
-function setup() {
+window.setup = function () {
   createCanvas(windowWidth, windowHeight);
   var initial = [];
   initial.push(new Vertex(0, 0));
@@ -25,7 +25,7 @@ function drawSegment(u, v) {
   line(u.x, u.y, v.x, v.y);
 }
 
-function draw() {
+window.draw = function () {
   if (panes.length > 1000) return;
   var whichPane = int(random(panes.length));
   var pane = panes[whichPane];

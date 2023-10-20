@@ -16,7 +16,7 @@ function convexCombination(u, v, d) {
 var panes = [];
 
 
-function setup() {
+window.setup = function () {
   createCanvas(windowWidth, windowHeight);
   var initial = [];
   initial.push(new Vertex(0, 0));
@@ -67,7 +67,7 @@ function computePaneWeight(vertices, whichSide, edgeWeight) {
   return cutPerimeter / perimeter;
 }
 
-function draw() {
+window.draw = function () {
   if (panes.length > 1000)
     return;
 

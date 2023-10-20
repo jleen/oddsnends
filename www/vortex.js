@@ -58,7 +58,7 @@ var step = 1;
 var rotStep = Math.PI / 180;
 var eraseMode = 0;
 
-function setup() {
+window.setup = function () {
   createCanvas(windowWidth, windowHeight);
   t = new turtle();
   t.scale = 0;
@@ -88,7 +88,7 @@ function shape() {
   t.goNorth();
 }
 
-function draw() {
+window.draw = function () {
   if (t.scale > Math.max(windowWidth, windowHeight) / 4) {
     t.scale = 0;
     t.rot = 0;
