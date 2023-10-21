@@ -20,7 +20,7 @@ function display(i) {
     if (i + 1 < sketches.length) {
         setTimeout(() => { display(i + 1); }, catalogDelay);
     } else {
-        setTimeout(() => { menu(0); }, catalogDelay);
+        setTimeout(() => { revealMenu(0); }, catalogDelay);
     }
 }
 
@@ -35,11 +35,11 @@ function menuLines(i) {
     return html;
 }
 
-function menu(i) {
+function revealMenu(i) {
     document.getElementById('main').innerHTML = nonsense + menuLines(i);
 
     if (i < sketches.length) {
-        setTimeout(() => { menu(i + 1); }, menuDelay);
+        setTimeout(() => { revealMenu(i + 1); }, menuDelay);
     } else {
         setTimeout(menuDone, menuDelay);
     }
@@ -50,12 +50,13 @@ function menuDone() {
     html += menuLines(sketches.length);
     document.getElementById('main').innerHTML = html;
 
-    $(document).keypress((event) => {
-        if (event.which > 96 && event.which <= 96 + sketches.length) {
-            window.location.href = `${sketches[event.which - 97]}.html`; 
+    let menu = new Map(sketches.map((s, i) => [String.fromCharCode(97 + i), s]));
+    document.onkeydown = (event) => {
+        if (menu.has(event.key)) {
+            window.location.href = `${menu.get(event.key)}.html`; 
             event.preventDefault();
         }
-    });
+    };
 }
 
 window.addEventListener('load', () => {
